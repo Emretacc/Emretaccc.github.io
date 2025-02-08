@@ -1,0 +1,70 @@
+<!-- nomnom.html -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Nom Nom</title>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="nomnom_style.css">
+</head>
+<body>
+    <div class="hearts"></div>
+    
+    <div class="container">
+        <h1 class="header_text">Beni Seviyor Musun?</h1>
+        
+        <div class="gif_container">
+            <src="" alt="👉🏻👈🏻" width="200">
+        </div>
+        
+        <div class="buttons">
+            <button class="btn" id="yesButton" onclick="nextPage()">Evet</button>
+            <button class="btn" id="noButton" onmouseover="moveButton()">Hayır</button>
+        </div>
+    </div>
+
+    <script>
+       function moveButton() {
+    const button = document.getElementById('noButton');
+    const container = document.querySelector('.container');
+    const buttonRect = button.getBoundingClientRect();
+    
+    // Container içinde rastgele pozisyon
+    const maxX = container.clientWidth - buttonRect.width;
+    const maxY = container.clientHeight - buttonRect.height;
+    
+    // Rastgele pozisyon hesapla (container sınırları içinde)
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+    
+    // Butonu yeni pozisyona taşı
+    button.style.position = 'absolute';
+    button.style.left = randomX + 'px';
+    button.style.top = randomY + 'px';
+}
+
+        function nextPage() {
+            window.location.href = 'nomnom_yes.html';
+        }
+
+        // Arka plan kalpleri oluşturma
+        function createHearts() {
+            const heartsContainer = document.querySelector('.hearts');
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.opacity = Math.random();
+            
+            heartsContainer.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        setInterval(createHearts, 300);
+    </script>
+</body>
+</html>

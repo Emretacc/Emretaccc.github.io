@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emre ❤️ Ela | Bizim Özel Yerimiz</title>
+    
+    <!-- Font Awesome ve Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Buraya style.css içeriği gelecek */
+    </style>
+</head>
+<body>
+    <!-- Giriş Sayfası -->
+    <div id="auth-page" class="page active">
+        <div class="floating-hearts"></div>
+        <div class="login-container rgb-border">
+            <div class="login-box">
+                <h1>Emre <span class="heart">❤️</span> Ela</h1>
+                <p>Özel Dünyamıza Hoş Geldin Aşkım</p>
+                <div class="login-form">
+                    <input type="password" id="password" placeholder="Özel şifremizi gir...">
+                    <button onclick="checkPassword()" class="glow-button">
+                        <i class="fas fa-heart"></i> Giriş Yap
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ana Menü -->
+    <div id="main-menu" class="page">
+        <div class="floating-hearts"></div>
+        <div class="menu-container">
+            <h1 class="menu-title">Emre & Ela</h1>
+            <div class="menu-grid">
+                <div class="menu-item rgb-border" onclick="showPage('timer-page')">
+                    <i class="fas fa-clock"></i>
+                    <span>Sayaç</span>
+                </div>
+                <div class="menu-item rgb-border" onclick="showPage('memories-page')">
+                    <i class="fas fa-heart"></i>
+                    <span>Anılarımız</span>
+                </div>
+                <div class="menu-item rgb-border" onclick="showPage('games-page')">
+                    <i class="fas fa-gamepad"></i>
+                    <span>Oyunlar</span>
+                </div>
+                <div class="menu-item rgb-border" onclick="showPage('messages-page')">
+                    <i class="fas fa-envelope"></i>
+                    <span>Mesajlar</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sayaç Sayfası -->
+    <div id="timer-page" class="page">
+        <div class="floating-hearts"></div>
+        <div class="page-container">
+            <div class="page-header">
+                <button onclick="showPage('main-menu')" class="back-button">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1>Birlikte Geçen Zamanımız</h1>
+            </div>
+            <div class="countdown-container rgb-border">
+                <div class="countdown-grid">
+                    <div class="time-unit">
+                        <span id="relationship-days">00</span>
+                        <span>Gün</span>
+                    </div>
+                    <div class="time-unit">
+                        <span id="relationship-hours">00</span>
+                        <span>Saat</span>
+                    </div>
+                    <div class="time-unit">
+                        <span id="relationship-minutes">00</span>
+                        <span>Dakika</span>
+                    </div>
+                    <div class="time-unit">
+                        <span id="relationship-seconds">00</span>
+                        <span>Saniye</span>
+                    </div>
+                </div>
+                <div class="countdown-footer">
+                    <p>İlk Tanışma: <span id="first-meet-date">1 Ocak 2024</span></p>
+                    <p>İlk Buluşma: <span id="first-date">1 Ocak 2024</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Anılar Sayfası -->
+    <div id="memories-page" class="page">
+        <div class="floating-hearts"></div>
+        <div class="page-container">
+            <div class="page-header">
+                <button onclick="showPage('main-menu')" class="back-button">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1>Güzel Anılarımız</h1>
+            </div>
+            <div class="memories-container rgb-border">
+                <div class="slideshow-container">
+                    <div id="slides-wrapper" class="slides-wrapper"></div>
+                    <div class="slide-controls">
+                        <button onclick="prevSlide()"><i class="fas fa-chevron-left"></i></button>
+                        <button onclick="nextSlide()"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Oyunlar Sayfası -->
+    <div id="games-page" class="page">
+        <div class="floating-hearts"></div>
+        <div class="page-container">
+            <div class="page-header">
+                <button onclick="showPage('main-menu')" class="back-button">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1>Oyunlarımız</h1>
+            </div>
+            <div class="games-container">
+                <div class="game-card rgb-border" onclick="startMemoryGame()">
+                    <i class="fas fa-puzzle-piece"></i>
+                    <h3>Hafıza Oyunu</h3>
+                    <p>Anılarımızı eşleştir</p>
+                </div>
+                <div class="game-card rgb-border" onclick="startQuiz()">
+                    <i class="fas fa-question-circle"></i>
+                    <h3>Aşk Testimiz</h3>
+                    <p>Beni ne kadar tanıyorsun?</p>
+                </div>
+                <div class="game-card rgb-border" onclick="startWordGame()">
+                    <i class="fas fa-font"></i>
+                    <h3>Kelime Oyunu</h3>
+                    <p>Aşk kelimelerini bul</p>
+                </div>
+                <div class="game-card rgb-border" onclick="startMazeGame()">
+                    <i class="fas fa-heart"></i>
+                    <h3>Aşk Labirenti</h3>
+                    <p>Kalbe ulaş</p>
+                </div>
+            </div>
+            <div id="game-area" class="game-area rgb-border"></div>
+        </div>
+    </div>
+
+    <!-- Mesajlar Sayfası -->
+    <div id="messages-page" class="page">
+        <div class="floating-hearts"></div>
+        <div class="page-container">
+            <div class="page-header">
+                <button onclick="showPage('main-menu')" class="back-button">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1>Mesajlarımız</h1>
+            </div>
+            <div class="messages-container rgb-border">
+                <div id="daily-message" class="message-card special"></div>
+                <div id="message-list" class="message-list"></div>
+                <div class="message-form">
+                    <textarea id="message-input" placeholder="Bana bir aşk notu bırak..."></textarea>
+                    <button onclick="sendMessage()" class="glow-button">
+                        <i class="fas fa-heart"></i> Gönder
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Buraya script.js içeriği gelecek
+    </script>
+</body>
+</html>

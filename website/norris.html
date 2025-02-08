@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Norris </title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        
+        body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #1a237e 0%, #283593 100%); /* Koyu mavi arka plan */
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.water {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 90%;
+    background: linear-gradient(180deg, rgba(173,216,230,0.2) 0%, rgba(173,216,230,0.4) 100%);
+    border-radius: 0 0 200px 200px;
+}
+
+.bubble {
+    position: absolute;
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.8) 0%,
+        rgba(255, 255, 255, 0.4) 50%,
+        rgba(255, 255, 255, 0.2) 100%
+    );
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    animation: bubbleRise 4s infinite ease-out;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+/* Baloncuk animasyonunu güncelleyelim */
+@keyframes bubbleRise {
+    0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-400px) translateX(20px);
+        opacity: 0;
+    }
+}
+
+/* Baloncuk oluşturma scriptini de güncelleyelim */
+
+        .title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4em;
+            color: #2c3e50;
+            margin: 20px 0;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+
+        .fishbowl {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%);
+            border: 20px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(255,255,255,0.5);
+        }
+
+        .water {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 90%;
+            background: linear-gradient(180deg, rgba(173,216,230,0.3) 0%, rgba(173,216,230,0.5) 100%);
+            border-radius: 0 0 200px 200px;
+        }
+
+        .fish {
+            position: absolute;
+            width: 80px;
+            height: 60px;
+            left: 50%;
+            top: 50%;
+            transform-origin: center;
+            animation: swim 8s infinite ease-in-out;
+        }
+
+        .fish-body {
+    position: absolute;
+    width: 80px;
+    height: 60px;
+    border-radius: 50% 50% 50% 50%;
+    background: #FF6F00; /* Koyu turuncu ana renk */
+    overflow: hidden;
+}
+
+/* Beyaz şeritler için */
+.fish-body::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 80%;
+    background: white;
+    border-radius: 25px;
+    clip-path: polygon(
+        30% 0,
+        70% 0,
+        70% 100%,
+        30% 100%
+    );
+}
+
+/* İkinci beyaz şerit */
+.fish-body::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 85%;
+    transform: translate(-50%, -50%);
+    width: 25%;
+    height: 80%;
+    background: white;
+    border-radius: 25px;
+}
+
+.fish-tail {
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    background: #FF6F00; /* Ana renk ile aynı */
+    clip-path: polygon(0 0, 0 100%, 100% 50%);
+    animation: tailWag 0.6s infinite ease-in-out;
+}
+
+.fish-eye {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: black; /* Göz rengini siyah yaptım */
+    border-radius: 50%;
+    top: 20px;
+    left: 15px;
+    z-index: 2;
+}
+
+.fish-eye::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+}
+
+
+        
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            border-radius: 50px;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
+        }
+
+        .feed-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 200px;
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .feed-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .feed-button {
+            background: #FF6F00;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 15px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(255, 111, 0, 0.3);
+        }
+
+        .feed-button:hover {
+            background: #FF8F00;
+            transform: scale(1.05);
+        }
+
+        #countdown {
+            font-size: 1.3em;
+            color: #2c3e50;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .title {
+            margin-top: 60px; /* Geri butonu için üstten boşluk */
+        }
+
+        /* Baloncukların z-index'ini artıralım */
+        .bubble {
+            z-index: 2;
+        }
+  
+
+        .bubble {
+            position: absolute;
+            background: rgba(255,255,255,0.6);
+            border-radius: 50%;
+            animation: bubbleRise 3s infinite ease-out;
+        }
+
+        @keyframes swim {
+            0% { transform: translate(-50%, -50%) rotate(0deg) translateX(0); }
+            25% { transform: translate(-30%, -30%) rotate(15deg) translateX(50px); }
+            50% { transform: translate(-50%, -50%) rotate(0deg) translateX(0); }
+            75% { transform: translate(-70%, -70%) rotate(-15deg) translateX(-50px); }
+            100% { transform: translate(-50%, -50%) rotate(0deg) translateX(0); }
+        }
+
+        @keyframes tailWag {
+            0%, 100% { transform: translateY(-50%) scaleX(1); }
+            50% { transform: translateY(-50%) scaleX(-1); }
+        }
+
+        @keyframes bubbleRise {
+            0% { transform: translateY(0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-400px); opacity: 0; }
+        }
+    </style>
+</head>
+<button class="back-button" onclick="window.location.href='idex.html'">
+    ← Geri Dön
+</button>
+
+<h1 class="title">Norris </h1>
+<div class="fishbowl">
+    <div class="water"></div>
+    <div class="fish">
+        <div class="fish-body"></div>
+        <div class="fish-tail"></div>
+        <div class="fish-eye"></div>
+    </div>
+</div>
+
+<div class="feed-container">
+    <h2 style="margin: 0; color: #2c3e50; font-size: 1.2em;">Besleme Zamanı</h2>
+    <div id="countdown">00:00:00</div>
+    <button class="feed-button" onclick="feedFish()">
+        Norris'i Besle 🐟
+    </button>
+</div>
+
+    <script>
+        function createBubble() {
+    const fishbowl = document.querySelector('.fishbowl');
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    
+    // Rastgele boyut (5px ile 15px arası)
+    const size = Math.random() * 10 + 5;
+    bubble.style.width = `${size}px`;
+    bubble.style.height = `${size}px`;
+    
+    // Rastgele başlangıç pozisyonu
+    const startPos = Math.random() * 360 + 20;
+    bubble.style.left = `${startPos}px`;
+    bubble.style.bottom = '50px';
+    
+    fishbowl.appendChild(bubble);
+    
+    // 4 saniye sonra baloncuğu kaldır
+    setTimeout(() => {
+        bubble.remove();
+    }, 4000);
+}
+
+// Her 300ms'de bir baloncuk oluştur
+setInterval(createBubble, 300);
+
+        let lastFeedTime = localStorage.getItem('lastFeedTime') || new Date().getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const timeSinceLastFeed = now - lastFeedTime;
+            const timeUntilNextFeed = Math.max(12 * 60 * 60 * 1000 - timeSinceLastFeed, 0);
+            
+            const hours = Math.floor(timeUntilNextFeed / (60 * 60 * 1000));
+            const minutes = Math.floor((timeUntilNextFeed % (60 * 60 * 1000)) / (60 * 1000));
+            const seconds = Math.floor((timeUntilNextFeed % (60 * 1000)) / 1000);
+
+            document.getElementById('countdown').textContent = 
+                `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        function feedFish() {
+            const now = new Date().getTime();
+            const timeSinceLastFeed = now - lastFeedTime;
+            
+            if (timeSinceLastFeed >= 12 * 60 * 60 * 1000) {
+                lastFeedTime = now;
+                localStorage.setItem('lastFeedTime', lastFeedTime);
+                alert('Norris mutlu! 🐠❤️');
+            } else {
+                alert('Norris henüz aç değil! Biraz bekleyelim... 🐠');
+            }
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
